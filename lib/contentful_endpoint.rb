@@ -1,14 +1,12 @@
 
+require 'sinatra'
+require 'endpoint_base'
+
 Dir[File.dirname(__FILE__) + '/lib/**/*.rb'].each { |f| require f }
 
 class ContentfulEndpoint < EndpointBase::Sinatra::Base
   set :logging, true
   attr_reader :payload
-
-  configure :development do
-    require 'dotenv'
-    Dotenv.load(File.dirname(__FILE__) + '/.env')
-  end
 
   def contentful_client
     Thread.current[:contentful_client] ||= ::ContentfulClient.new

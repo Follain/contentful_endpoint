@@ -1,9 +1,10 @@
+ruby '2.3.1'
+
 source "https://rubygems.org"
 
-gem 'contentful'
-gem 'contentful-management'
-gem 'endpoint_base', github: 'spree/endpoint_base'
-gem 'sinatra'
+gemspec
+
+gem 'endpoint_base', git: 'https://github.com/Follain/endpoint_base'
 
 group :development do
   gem 'pry'
