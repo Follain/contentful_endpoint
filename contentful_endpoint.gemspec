@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
 
   s.test_files = `git ls-files spec/`.split("\n")
 
-  s.add_runtime_dependency 'sinatra', '~> 1.4'
+  s.add_runtime_dependency 'sinatra'
   s.add_runtime_dependency 'contentful'
   s.add_runtime_dependency 'contentful-management'
-  s.add_runtime_dependency 'tilt', '~> 1.4.1'
+  s.add_runtime_dependency 'tilt'
   s.add_runtime_dependency 'tilt-jbuilder'
 end
