@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'sinatra'
   s.add_runtime_dependency 'contentful'
   s.add_runtime_dependency 'contentful-management'
+  s.add_runtime_dependency 'slugify'
   s.add_runtime_dependency 'tilt'
   s.add_runtime_dependency 'tilt-jbuilder'
 end
