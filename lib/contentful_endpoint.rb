@@ -17,7 +17,15 @@ class ContentfulEndpoint < EndpointBase::Sinatra::Base
       product = contentful_client.add_product(payload)
       message  = "added product #{product.name}"
 
-      add_value 'products', [{ channel: 'Contentful', sku: product.sku, id: product.id, name: product.name }]
+      add_value 'products', [
+        {
+          channel: 'Contentful',
+          sku: product.sku,
+          permalink: product.permalink,
+          id: product.id,
+          name: product.name
+        }
+      ]
       code     = 200
     rescue => e
       message  = e.message

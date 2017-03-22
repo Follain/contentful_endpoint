@@ -6,6 +6,7 @@ class ContentfulClient
   def add_product(payload)
     brand = payload[:product][:taxons].index_by(&:first)['Brand'].try(:last)
     sku = payload[:product][:sku]
+    permalink = payload[:product][:permalink]
     name = [brand, payload[:product][:name]].join(' / ')
 
     existing = display_client.entries(content_type: 'product', 'fields.sku' => sku).first
@@ -13,12 +14,14 @@ class ContentfulClient
       product = space.entries.find(existing.id)
       product.name = name
       product.brand = brand
+      product.permalink = permalink
       product.save
     else
       product = create(
         :product,
         locale: 'en-US',
         sku: sku,
+        permalink: permalink,
         name: name, brand: brand
       )
     end
