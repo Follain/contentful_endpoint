@@ -62,7 +62,7 @@ class ContentfulClient
   end
 
   def content_type(name)
-    id = name.downcase.slugify
+    id = name.gsub(' ', '_').camelize(:lower)
 
     content_type = space.content_types.find(id)
     return content_type if content_type.kind_of?(Contentful::Management::ContentType)
