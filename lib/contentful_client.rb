@@ -7,7 +7,7 @@ class ContentfulClient
     brand = payload[:product][:taxons].index_by(&:first)['Brand'].try(:last)
     sku = payload[:product][:sku]
     permalink = payload[:product][:permalink]
-    name = [brand, payload[:product][:name]].join(' / ')
+    name = payload[:product][:name]
 
     existing = display_client.entries(content_type: 'product', 'fields.sku' => sku).first
     if existing.present?
@@ -22,7 +22,8 @@ class ContentfulClient
         locale: 'en-US',
         sku: sku,
         permalink: permalink,
-        name: name, brand: brand
+        name: name,
+        brand: brand
       )
     end
 
@@ -61,8 +62,13 @@ class ContentfulClient
     end
   end
 
+  CONTENT_TYPE_MAP = {
+    'Best for' => 'best-for',
+    'Restricted Ingredient' => 'restricted-ingredient'
+  }
+
   def content_type(name)
-    id = name.gsub(' ', '_').camelize(:lower)
+    id = CONTENT_TYPE_MAP[name] || name.gsub(' ', '_').camelize(:lower)
 
     content_type = space.content_types.find(id)
     return content_type if content_type.kind_of?(Contentful::Management::ContentType)
