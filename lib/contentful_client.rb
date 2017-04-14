@@ -9,9 +9,10 @@ class ContentfulClient
     permalink = payload[:product][:permalink]
     name = payload[:product][:name]
 
-    existing = display_client.entries(content_type: 'product', 'fields.sku' => sku).first
+    existing = display_client.entries(content_type: 'product', 'fields.permalink' => permalink).first
     if existing.present?
       product = space.entries.find(existing.id)
+      product.sku = sku
       product.name = name
       product.brand = brand
       product.permalink = permalink
